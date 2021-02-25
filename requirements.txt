@@ -1,0 +1,5 @@
+TensorFlow==1.15.2
+Keras==2.3.1
+pip install TensorFlow==1.15.2
+pip install Keras==2.3.1
+pip install git+https://www.github.com/keras-team/keras-contrib.git
