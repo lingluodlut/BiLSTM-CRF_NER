@@ -16,21 +16,7 @@ class RepresentationLayer(object):
     def __init__(self, wordvec_file,  vocab_file=[],\
                  vec_size=50, word_size=10000, frequency=10000):
         
-        '''
-        wordvec_file    ：    the file path of word embedding
-        vec_size        :    the dimension size of word vector 
-                             learned by word2vec tool
-        
-        word_size       :    the size of word vocabulary
-  
-        frequency       :    the threshold for the words left according to
-                             their frequency appeared in the text
-                             for example, when frequency is 10000, the most
-                             frequent appeared 10000 words are considered
-        
 
-        
-        '''
         #load word embedding
         file = open(wordvec_file)
         first_line = file.readline().strip()
@@ -52,7 +38,7 @@ class RepresentationLayer(object):
         if 'char' in vocab_file.keys():
             self.load_fea_vocab(vocab_file['char'],self.char_2_index)
             self.char_table_size=len(self.char_2_index)
-            print(self.char_table_size)
+            #print(self.char_table_size)
             #print(self.char_2_index) 
             
             
@@ -62,14 +48,14 @@ class RepresentationLayer(object):
         if 'label' in vocab_file.keys():
             self.load_label_vocab(vocab_file['label'],self.label_2_index,self.index_2_label)
             self.label_table_size=len(self.label_2_index)
-            print(self.label_table_size)
+            #print(self.label_table_size)
     
     def load_wordvecs(self, wordvec_file):
         
         file = open(wordvec_file,'r',encoding='utf-8')
         file.readline()
-        print(self.word_size)
-        print(self.vec_size)
+        #print(self.word_size)
+        #print(self.vec_size)
         row = 0
         self.word_2_index['padding_0'] = row #oov-zero vector
         row+=1
@@ -150,7 +136,7 @@ class RepresentationLayer(object):
             y_list.append(label_list)
             
                 
-        print("dataset vocab:", len(data_vocab),"dataset oov:",len(data_oov))
+        #print("dataset vocab:", len(data_vocab),"dataset oov:",len(data_oov))
         
         x_word_np = pad_sequences(x_word_list, word_max_len, value=0, padding='post',truncating='post')  # right padding
 

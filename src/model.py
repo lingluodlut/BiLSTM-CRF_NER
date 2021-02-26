@@ -31,6 +31,7 @@ class BiLSTM_CRF():
         self.rep = RepresentationLayer(self.w2vfile,vocab_file=vocab, frequency=400000)
          
         print('building  model......')
+        # Input representation
         all_fea = []
         fea_list = []
         
@@ -48,19 +49,18 @@ class BiLSTM_CRF():
             char_fea_max = TimeDistributed(GlobalMaxPooling1D(), name="char_pooling_max")(char_fea)
             fea_list.append(char_fea_max)
               
-    
         if len(fea_list) == 1:
             concate_vec = fea_list[0]
         else:
             concate_vec = Concatenate()(fea_list)
-    
         concate_vec = Dropout(0.4)(concate_vec)
     
-        # model
+        # Context encoder
         bilstm = Bidirectional(LSTM(200, return_sequences=True, implementation=2, dropout=0.4, recurrent_dropout=0.4), name='bilstm1')(concate_vec)
         dense = TimeDistributed(Dense(200, activation='tanh'), name='dense1')(bilstm)
-    
         dense= Dropout(0.4)(dense)
+        
+        # Tag decoder
         crf = CRF(self.rep.label_table_size, sparse_target=True)
         output = crf(dense)
         self.model = Model(inputs=all_fea, outputs=output)
