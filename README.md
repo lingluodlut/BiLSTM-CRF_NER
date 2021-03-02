@@ -25,7 +25,7 @@ Please install all dependencies using the command before running:
 	- conlleval.pl: CONLL03 evluation script
 	- processing_data.py
 
-##Run
+## Run
 1. To run this code, you need to first download [the pretrained word embedding file.](https://drive.google.com/file/d/18KTxjkkTbntkWYLUl_brg34paVW0bNWQ/view?usp=sharing)
 1. Run the "NER_BiLSTM_CRF.py" file
 
